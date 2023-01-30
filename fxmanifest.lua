@@ -1,17 +1,22 @@
-fx_version 'bodacious'
+fx_version 'cerulean'
+game 'gta5'
+
 author 'teig'
-description 'qb-drugproduce'
-games { 'gta5' }
+description 'Lumberjack (made by teig)'
+version '1.1.0'
 
-shared_script {
+shared_script {,
 'config.lua',
+,
 }
 
-client_script {'client/client.lua'
+client_scripts {
+    'client/*.lua'
 }
-server_script 'server/server.lua'
 
+server_scripts {'server/*.lua'}
 
 
 
 lua54 'yes'
+

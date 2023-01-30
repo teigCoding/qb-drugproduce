@@ -46,7 +46,7 @@ Config.Locations = {
     },
     
 }
-Config.Amount = {3,5}
+Config.Amount = 5
 
 Config.coca = {
     collectitem = "coca",

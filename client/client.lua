@@ -316,8 +316,7 @@ RegisterNetEvent("brp-drugs:client:startProsess",function(args,i,x)
     local i = i or 0
     local x = x or math.random(2,5)
     if args.args.meth == nil then
-        local amount = math.random(Config.Amount[1],Config.Amount[2])
-        local amount = checkIfResources(args,amount)
+        local amount = Config.Amount
         if args.args.collect == true or QBCore.Functions.HasItem(args.args.item,amount) then
             ExecuteCommand("e mechanic")
                 Wait(200)
@@ -352,8 +351,7 @@ RegisterNetEvent("brp-drugs:client:startProsess",function(args,i,x)
             TriggerEvent("QBCore:Notify", "You don't have enough.", "error")
         end
     else
-        local amount = math.random(Config.Amount[1],Config.Amount[2])
-        local amount = checkIfResources(args,amount)
+        local amount = Config.Amount
        if amount > 0 then
         ExecuteCommand("e mechanic")
                  Wait(100)
