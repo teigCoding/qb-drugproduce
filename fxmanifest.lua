@@ -5,9 +5,8 @@ author 'teig'
 description 'Lumberjack (made by teig)'
 version '1.1.0'
 
-shared_script {,
+shared_script {
 'config.lua',
-,
 }
 
 client_scripts {
