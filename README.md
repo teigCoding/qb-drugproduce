@@ -11,3 +11,4 @@ Discord Support: https://discord.gg/mAFcFpamZ9
 	["meth"] 						 = {["name"] = "meth", 			  			  	["label"] = "Unpackaged Meth", 	  		["weight"] = 100, 		["type"] = "item", 		["image"] = "methbrick.png", 				["unique"] = false, 	  ["useable"] = true, 	["shouldClose"] = false,	   ["combinable"] = nil,   ["description"] = "Meth"},
 	["coca"] 						 = {["name"] = "coca", 			  	  			["label"] = "Unpackaged Coca",   		["weight"] = 100, 		["type"] = "item", 		["image"] = "cocaine.png", 				["unique"] = false, 	  ["useable"] = true, 	["shouldClose"] = false,	   ["combinable"] = nil,   ["description"] = "Unpackaged Coca"},
 	["packagedcoca"] 				 = {["name"] = "packagedcoca", 					["label"] = "Cocain", 	   	    		["weight"] = 100, 		["type"] = "item", 		["image"] = "cocainebaggy.png", 		["unique"] = false, 	  ["useable"] = true, 	["shouldClose"] = false,	   ["combinable"] = nil,   ["description"] = "Cocain"},
+
