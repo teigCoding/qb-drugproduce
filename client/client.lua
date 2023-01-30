@@ -293,23 +293,15 @@ Citizen.CreateThread(function ()
 end)
 
 local function checkIfResources(args,amount)
-    local howMany = 0
-    if args.args.meth == nil then
-            for i=1,amount do
-                if QBCore.Functions.HasItem(args.args.item,i) == true then
-                    howMany = i
-                end
-            end
-    else
         for x=1,#args.args.item do
-            for i=1,amount do
-                if QBCore.Functions.HasItem(args.args.item[x],i) == true then
-                    howMany = i
+            
+                if QBCore.Functions.HasItem(args.args.item[x],i) == false then
+                    return false
                 end
-            end
+         
         end
-    end
-    return howMany
+    
+    return true
 end
 
 RegisterNetEvent("brp-drugs:client:startProsess",function(args,i,x)
@@ -352,7 +344,7 @@ RegisterNetEvent("brp-drugs:client:startProsess",function(args,i,x)
         end
     else
         local amount = Config.Amount
-       if amount > 0 then
+       if checkIfResources(args,amount) then
         ExecuteCommand("e mechanic")
                  Wait(100)
 
