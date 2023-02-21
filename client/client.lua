@@ -304,79 +304,88 @@ local function checkIfResources(args,amount)
     return true
 end
 
+alreadyDoing = false
 RegisterNetEvent("brp-drugs:client:startProsess",function(args,i,x)
     local i = i or 0
     local x = x or math.random(2,5)
-    if args.args.meth == nil then
-        local amount = Config.Amount
-        if args.args.collect == true or QBCore.Functions.HasItem(args.args.item,amount) then
-            ExecuteCommand("e mechanic")
-                Wait(200)
-                local Skillbar = exports['qb-skillbar']:GetSkillbarObject()
-                Skillbar.Start({
-                    duration = math.random(700,2000),
-                    pos = math.random(10, 30),
-                    width = math.random(10, 15),
-                }, function()
-                i = i+1
-                if i ~= x then
-                    TriggerEvent("brp-drugs:client:startProsess",args, i,x)
-                else
-                    QBCore.Functions.Progressbar("job_progress", args.args.labeltext, math.random(5500,6000), false, true, {
-                        disableMovement = true,
-                    }, {}, {}, {}, function() -- Done
-                        ExecuteCommand("e c")
-                        TriggerServerEvent("brp-drugs:server:giveItem",args,amount)
- 
-                    end, function() -- cancel
-                        ExecuteCommand("e c")
-                    end)
-                end
-            end, function()
-                TriggerEvent("QBCore:Notify", "You didn't make it.", "error")
-                ExecuteCommand("e c")
- 
-            end)
- 
- 
-        else
-            TriggerEvent("QBCore:Notify", "You don't have enough.", "error")
-        end
-    else
-        local amount = Config.Amount
-       if checkIfResources(args,amount) then
-        ExecuteCommand("e mechanic")
-                 Wait(100)
+    if not alreadyDoing then
+	    if args.args.meth == nil then
+		local amount = Config.Amount
+		if args.args.collect == true or QBCore.Functions.HasItem(args.args.item,amount) then
+		    ExecuteCommand("e mechanic")
+			Wait(200)
+			local Skillbar = exports['qb-skillbar']:GetSkillbarObject()
+			Skillbar.Start({
+			    duration = math.random(700,2000),
+			    pos = math.random(10, 30),
+			    width = math.random(10, 15),
+			}, function()
+			i = i+1
+			if i ~= x then
+			    TriggerEvent("brp-drugs:client:startProsess",args, i,x)
+			else
+			    alreadyDoing = true
+			    QBCore.Functions.Progressbar("job_progress", args.args.labeltext, math.random(5500,6000), false, false, {
+				disableMovement = true,
+			    }, {}, {}, {}, function() -- Done
+				ExecuteCommand("e c")
+				TriggerServerEvent("brp-drugs:server:giveItem",args,amount)
+                                alreadyDoing = false
+			    end, function() -- cancel
+				ExecuteCommand("e c")
+			    end)
+			end
+		    end, function()
+			TriggerEvent("QBCore:Notify", "You didn't make it.", "error")
+			ExecuteCommand("e c")
 
-                local Skillbar = exports['qb-skillbar']:GetSkillbarObject()
-                Skillbar.Start({
-                    duration = math.random(700,2000),
-                    pos = math.random(10, 30),
-                    width = math.random(10, 15),
-                }, function()
-                i = i+1
-                if i ~= x then
-                    TriggerEvent("brp-drugs:client:startProsess",args, i,x)
-                else
-                    QBCore.Functions.Progressbar("job_progress", args.args.labeltext, math.random(5500,6000), false, true, {
-                        disableMovement = true,
-                    }, {}, {}, {}, function() -- Done
-                        ExecuteCommand("e c")
-                        TriggerServerEvent("brp-drugs:server:giveItem",args,amount)
- 
-                    end, function() -- cancel
-                        ExecuteCommand("e c")
-                    end)
-                end
-            end, function()
-                TriggerEvent("QBCore:Notify", "You did not make it.", "error")
-                ExecuteCommand("e c")
- 
-            end)
-       else
-            TriggerEvent("QBCore:Notify", "You don't have enough.", "error")
-       end
-    end
+		    end)
+
+
+		else
+		    TriggerEvent("QBCore:Notify", "You don't have enough.", "error")
+		end
+	    else
+		local amount = Config.Amount
+	       if checkIfResources(args,amount) then
+		ExecuteCommand("e mechanic")
+			 Wait(100)
+
+			local Skillbar = exports['qb-skillbar']:GetSkillbarObject()
+			Skillbar.Start({
+			    duration = math.random(700,2000),
+			    pos = math.random(10, 30),
+			    width = math.random(10, 15),
+			}, function()
+			i = i+1
+			if i ~= x then
+			    TriggerEvent("brp-drugs:client:startProsess",args, i,x)
+			else
+		            alreadyDoing = true
+			    QBCore.Functions.Progressbar("job_progress", args.args.labeltext, math.random(5500,6000), false, false, {
+				disableMovement = true,
+			    }, {}, {}, {}, function() -- Done
+				ExecuteCommand("e c")
+				alreadyDoing = false
+				TriggerServerEvent("brp-drugs:server:giveItem",args,amount)
+
+			    end, function() -- cancel
+				ExecuteCommand("e c")
+			    end)
+			end
+		    end, function()
+			TriggerEvent("QBCore:Notify", "You did not make it.", "error")
+			ExecuteCommand("e c")
+
+		    end)
+	       else
+		    TriggerEvent("QBCore:Notify", "You don't have enough.", "error")
+	       end
+	    end
+	else
+	    TriggerEvent('QBCore:Notify', "You can't do this!", "error")
+	end
+
  
  
 end)
